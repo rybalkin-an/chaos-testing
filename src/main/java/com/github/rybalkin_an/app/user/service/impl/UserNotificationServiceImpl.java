@@ -1,13 +1,23 @@
 package com.github.rybalkin_an.app.user.service.impl;
 
 import com.github.rybalkin_an.app.user.service.UserNotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserNotificationServiceImpl implements UserNotificationService {
+
+    private final UserNotificationSubject notificationSubject;
+
+    @Autowired
+    public UserNotificationServiceImpl(UserNotificationSubject notificationSubject) {
+        this.notificationSubject = notificationSubject;
+    }
+
     @Override
     public String sendEmailNotification(String email, String subject, String message) {
-        return "Email sent to " + email + " with subject: " + subject + " with message: " + message;
+        notificationSubject.notifyObservers(email, subject, message);
+        return "Notification sent to " + email + " with subject: " + subject;
     }
 
     @Override

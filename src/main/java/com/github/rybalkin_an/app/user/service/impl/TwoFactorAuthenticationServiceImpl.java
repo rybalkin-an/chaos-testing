@@ -1,7 +1,9 @@
 package com.github.rybalkin_an.app.user.service.impl;
 
 import com.github.rybalkin_an.app.user.service.TwoFactorAuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,12 +13,21 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
 
     private final Map<String, String> userOtpStore = new HashMap<>();
     private final Random random = new Random();
+    private final OtpNotificationSubject notificationSubject;
+
+    @Autowired
+    public TwoFactorAuthenticationServiceImpl(OtpNotificationSubject notificationSubject) {
+        this.notificationSubject = notificationSubject;
+    }
 
     @Override
     public String generateOTP(String userId) {
         String otp = String.format("%06d", random.nextInt(999999));
+
         userOtpStore.put(userId, otp);
-        // Logic to send OTP via email or SMS can go here
+
+        notificationSubject.notifyObservers(userId, otp);
+
         return otp;
     }
 

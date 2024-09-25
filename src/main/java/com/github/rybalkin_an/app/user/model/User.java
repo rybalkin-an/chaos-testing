@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
@@ -34,4 +36,6 @@ public class User {
     @Email(message = "Email should be valid")
     private String email;
 
+//    @JdbcTypeCode(SqlTypes.JSON)
+//    private Subscriptions subscriptions;
 }

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  toxiproxy:
+    image: shopify/toxiproxy
+    container_name: toxiproxy
+    ports:
+      - "8888:8888"  # Toxiproxy proxy port
+      - "8474:8474"  # Toxiproxy control API port
+    volumes:
+      - ./toxiproxy.json:/etc/toxiproxy/toxiproxy.json  # Mounting the config file
+    command: toxiproxy-server -config /etc/toxiproxy/toxiproxy.json -port 8474

@@ -1,0 +1,13 @@
+{
+  "version": "1",
+  "proxies": [
+    {
+      "name": "spring-boot-api-proxy",
+      "listen": "0.0.0.0:8888",
+      "upstream": "localhost:8080",
+      "enabled": true,
+      "toxics": []
+    }
+  ]
+}
+

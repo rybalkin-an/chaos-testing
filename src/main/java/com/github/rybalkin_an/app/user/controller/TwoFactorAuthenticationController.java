@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/twofa")
-public class TwoFactorAuthenticationController {
-
-    @Autowired
-    private TwoFactorAuthenticationServiceImpl twoFactorAuthenticationService;
+public record TwoFactorAuthenticationController(TwoFactorAuthenticationServiceImpl twoFactorAuthenticationService) {
 
     @PostMapping("/generate/{userId}")
     public ResponseEntity<String> generateOtp(@PathVariable String userId) {
